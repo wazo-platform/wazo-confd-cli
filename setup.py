@@ -17,6 +17,7 @@ setup(
         'console_scripts': ['wazo-confd-cli = wazo_confd_cli.main:main'],
         'wazo_confd_cli.commands': [
             'user_list = wazo_confd_cli.commands.user:UserList',
+            'endpoint_sip_list = wazo_confd_cli.commands.endpoint:EndpointSIPList',
         ],
     },
 )
