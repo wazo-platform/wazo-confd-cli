@@ -18,6 +18,7 @@ setup(
         'wazo_confd_cli.commands': [
             'user_list = wazo_confd_cli.commands.user:UserList',
             'endpoint_sip_list = wazo_confd_cli.commands.endpoint:EndpointSIPList',
+            'endpoint_sip_template_list = wazo_confd_cli.commands.endpoint:EndpointSIPTemplateList',  # noqa: E501
         ],
     },
 )
