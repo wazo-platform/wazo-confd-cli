@@ -1,0 +1,7 @@
+extra_config_files: '/etc/wazo-confd-cli/conf.d'
+
+confd:
+  host: localhost
+  port: 9486
+  prefix: null
+  https: false
