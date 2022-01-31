@@ -45,13 +45,17 @@ class EndpointSIPList(ListBuildingMixin, Lister):
             '--tenant',
             help='Show SIP endpoints in a specific tenant',
         )
+        parser.add_argument(
+            '--template',
+            help='Filter endpoints using this template',
+        )
         return parser
 
     def take_action(self, parsed_args):
         kwargs = {'recurse': parsed_args.recurse}
 
         if parsed_args.tenant:
-            # TODO(pc-m): aventually add the auth client to be able to use by name?
+            # TODO(pc-m): eventually add the auth client to be able to use by name?
             kwargs['tenant_uuid'] = parsed_args.tenant
 
         result = self.app.client.endpoints_sip.list(**kwargs)
@@ -59,6 +63,19 @@ class EndpointSIPList(ListBuildingMixin, Lister):
             return (), ()
 
         raw_items = result['items']
+        if parsed_args.template:
+
+            def has_template(item):
+                for parent in item['templates']:
+                    if parent['uuid'] == parsed_args.template:
+                        return True
+                return False
+
+            raw_items = [item for item in raw_items if has_template(item)]
+
+        if not raw_items:
+            return (), ()
+
         headers = self.extract_column_headers(raw_items[0])
         items = self.extract_items(headers, raw_items)
 
