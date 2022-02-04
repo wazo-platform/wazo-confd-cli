@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
+import os
 
 from xivo.chain_map import ChainMap
 from xivo.config_helper import parse_config_dir, read_config_file_hierarchy
@@ -42,6 +43,10 @@ def _args_to_dict(parsed_args):
 def _read_user_config(parsed_args):
     if not parsed_args.config:
         return {}
+
+    if not os.path.exists(parsed_args.config):
+        return {}
+
     configs = parse_config_dir(parsed_args.config)
     return ChainMap(*configs)
 
