@@ -25,10 +25,8 @@ def _args_to_dict(parsed_args):
         confd_config['port'] = parsed_args.port
     if parsed_args.prefix:
         confd_config['prefix'] = parsed_args.prefix
-    if parsed_args.ssl:
-        confd_config['https'] = True
-    if parsed_args.no_ssl:
-        confd_config['https'] = False
+    if parsed_args.https is not None:
+        confd_config['https'] = parsed_args.https
     if parsed_args.token:
         confd_config['token'] = parsed_args.token
     if parsed_args.verify:

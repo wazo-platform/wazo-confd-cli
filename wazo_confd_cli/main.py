@@ -49,15 +49,21 @@ class WazoConfdCLI(App):
         parser.add_argument('--token', required=True, help='The wazo-auth token to use')
 
         https_verification = parser.add_mutually_exclusive_group()
-        https_verification.add_argument('--ssl', help="Use ssl")
-        https_verification.add_argument('--no-ssl', help="Don't use ssl")
         https_verification.add_argument(
+            '--ssl', dest='https', action='store_true', help="Use ssl"
+        )
+        https_verification.add_argument(
+            '--no-ssl', dest='https', action='store_false', help="Don't use ssl"
+        )
+
+        certificate_options = parser.add_mutually_exclusive_group()
+        certificate_options.add_argument(
             '--verify', action='store_true', help='Verify the HTTPS certificate or not'
         )
-        https_verification.add_argument(
+        certificate_options.add_argument(
             '--insecure', action='store_true', help='Bypass certificate verification'
         )
-        https_verification.add_argument('--cacert', help='Specify the ca bundle file')
+        certificate_options.add_argument('--cacert', help='Specify the ca bundle file')
 
         return parser
 
