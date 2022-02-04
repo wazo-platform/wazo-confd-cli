@@ -78,11 +78,11 @@ if [[ ! -v WEBRTC_VIDEO_TEMPLATE_UUID ]]; then
 fi
 
 # Fetch all WebRTC video endpoints
-readarray -t WEBRTC_VIDEO_ENDPOINT_UUIDS < <(wazo-confd-cli --token ${TOKEN} endpoint sip list --template ${WEBRTC_VIDEO_TEMPLATE_UUID} --tenant ${TENANT_UUID} -f value | awk -F ' ' '{ print $1 }')
+readarray -t WEBRTC_VIDEO_ENDPOINT_UUIDS < <(wazo-confd-cli --token ${TOKEN} endpoint sip list --template ${WEBRTC_VIDEO_TEMPLATE_UUID} --tenant ${TENANT_UUID} -f value -c uuid)
 
 # Find WebRTC endpoints that do not have Video enabled
 echo -n 'Updating WebRTC endpoints'
-for endpoint_uuid in $(wazo-confd-cli --token ${TOKEN} endpoint sip list --template ${WEBRTC_TEMPLATE_UUID} --tenant ${TENANT_UUID} -f value | awk -F ' ' '{ print $1 }'); do
+for endpoint_uuid in $(wazo-confd-cli --token ${TOKEN} endpoint sip list --template ${WEBRTC_TEMPLATE_UUID} --tenant ${TENANT_UUID} -f value -c uuid); do
     if [[ ! "${WEBRTC_VIDEO_ENDPOINT_UUIDS[*]}" =~ "${endpoint_uuid}" ]]; then
         echo -n '.'
         wazo-confd-cli --token "${TOKEN}" endpoint sip add --template "${WEBRTC_VIDEO_TEMPLATE_UUID}" "${endpoint_uuid}"
