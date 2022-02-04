@@ -32,7 +32,7 @@ do
     esac
 done
 
-if [[ ! -v TENANT_UUID ]]; then
+if [[ -z ${TENANT_UUID} ]]; then
     usage
 fi
 
