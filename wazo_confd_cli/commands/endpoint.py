@@ -60,7 +60,7 @@ class EndpointSIPList(ListBuildingMixin, Lister):
 
         result = self.app.client.endpoints_sip.list(**kwargs)
         if not result['items']:
-            return (), ()
+            return self._columns, ()
 
         raw_items = result['items']
         if parsed_args.template:
@@ -74,7 +74,7 @@ class EndpointSIPList(ListBuildingMixin, Lister):
             raw_items = [item for item in raw_items if has_template(item)]
 
         if not raw_items:
-            return (), ()
+            return self._columns, ()
 
         headers = self.extract_column_headers(raw_items[0])
         items = self.extract_items(headers, raw_items)
@@ -109,9 +109,13 @@ class EndpointSIPTemplateList(ListBuildingMixin, Lister):
 
         result = self.app.client.endpoints_sip_templates.list(**kwargs)
         if not result['items']:
-            return (), ()
+            return self._columns, ()
 
         raw_items = result['items']
+
+        if not raw_items:
+            return self._coluns, ()
+
         headers = self.extract_column_headers(raw_items[0])
         items = self.extract_items(headers, raw_items)
 

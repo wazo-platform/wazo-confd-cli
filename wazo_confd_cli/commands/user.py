@@ -70,16 +70,16 @@ class UserList(ListBuildingMixin, Lister):
         kwargs = {'recurse': parsed_args.recurse}
 
         if parsed_args.tenant:
-            # TODO(pc-m): aventually add the auth client to be able to use by name?
+            # TODO(pc-m): eventually add the auth client to be able to use by name?
             kwargs['tenant_uuid'] = parsed_args.tenant
 
         result = self.app.client.users.list(**kwargs)
         if not result['items']:
-            return (), ()
+            return self._columns, ()
 
         raw_items = result['items']
         if not raw_items:
-            return (), ()
+            return self._columns, ()
 
         headers = self.extract_column_headers(raw_items[0])
         items = self.extract_items(headers, raw_items)
