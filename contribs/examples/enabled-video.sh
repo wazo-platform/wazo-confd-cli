@@ -37,7 +37,7 @@ if [[ -z ${TENANT_UUID} ]]; then
 fi
 
 # Get a TOKEN
-if [[ -v AUTH_USERNAME ]]; then
+if [ -v AUTH_USERNAME  ] && [ ! -z ${AUTH_USERNAME} ]; then
     echo -n "Password for ${AUTH_USERNAME}: "
     read -s AUTH_PASSWORD
     echo
