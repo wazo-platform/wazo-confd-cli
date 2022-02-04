@@ -43,6 +43,9 @@ class WazoConfdCLI(App):
         )
         parser.add_argument('--hostname', help='The wazo-confd hostname')
         parser.add_argument('--port', help='The wazo-confd port')
+        parser.add_argument(
+            '--prefix', help='The URL prefix to use to reach wazo-confd'
+        )
         parser.add_argument('--token', required=True, help='The wazo-auth token to use')
 
         https_verification = parser.add_mutually_exclusive_group()

@@ -23,6 +23,8 @@ def _args_to_dict(parsed_args):
         confd_config['host'] = parsed_args.hostname
     if parsed_args.port:
         confd_config['port'] = parsed_args.port
+    if parsed_args.prefix:
+        confd_config['prefix'] = parsed_args.prefix
     if parsed_args.ssl:
         confd_config['https'] = True
     if parsed_args.no_ssl:
