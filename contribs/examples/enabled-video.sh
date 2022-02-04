@@ -28,6 +28,7 @@ do
     case "${flag}" in
         t) TENANT_UUID="${OPTARG}";;
         u) AUTH_USERNAME="${OPTARG}";;
+        :) usage;;
     esac
 done
 
