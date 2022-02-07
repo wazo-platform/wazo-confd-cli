@@ -33,12 +33,12 @@ do
     esac
 done
 
-if [[ -z ${TENANT_UUID} ]]; then
+if [[ ! -v TENANT_UUID ]] || [ -z "${TENANT_UUID}" ]; then
     usage
 fi
 
 # Get a TOKEN
-if [ -v AUTH_USERNAME  ] && [ ! -z ${AUTH_USERNAME} ]; then
+if [[ -v AUTH_USERNAME ]] && [ -n "${AUTH_USERNAME}" ]; then
     echo -n "Password for ${AUTH_USERNAME}: "
     read -s AUTH_PASSWORD
     echo
@@ -68,13 +68,13 @@ while IFS= read -r row; do
 done < <(wazo-confd-cli --token ${TOKEN} endpoint sip template list --tenant ${TENANT_UUID} -fvalue)
 
 
-if [[ ! -v WEBRTC_TEMPLATE_UUID ]]; then
-    echo 'Missing "webrtc" template cannot continue'
+if [[ ! -v WEBRTC_TEMPLATE_UUID ]] || [ -z "${WEBRTC_TEMPLATE_UUID}" ]; then
+    echo 'Missing "webrtc" template. Exiting.'
     exit 3
 fi
 
-if [[ ! -v WEBRTC_VIDEO_TEMPLATE_UUID ]]; then
-    echo 'Missing "webrtc_video" template cannot continue'
+if [[ ! -v WEBRTC_VIDEO_TEMPLATE_UUID ]] || [ -z "${WEBRTC_VIDEO_TEMPLATE_UUID}" ]; then
+    echo 'Missing "webrtc_video" template. Exiting.'
     exit 3
 fi
 
