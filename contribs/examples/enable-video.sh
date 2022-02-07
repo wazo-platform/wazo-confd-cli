@@ -29,6 +29,7 @@ do
         t) TENANT_UUID="${OPTARG}";;
         u) AUTH_USERNAME="${OPTARG}";;
         :) usage;;
+        *) usage;;
     esac
 done
 
