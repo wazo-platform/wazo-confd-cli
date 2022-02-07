@@ -40,10 +40,10 @@ fi
 # Get a TOKEN
 if [[ -v AUTH_USERNAME ]] && [ -n "${AUTH_USERNAME}" ]; then
     echo -n "Password for ${AUTH_USERNAME}: "
-    read -s AUTH_PASSWORD
+    read -rs AUTH_PASSWORD
     echo
 
-    TOKEN=$(wazo-auth-cli token create --auth-username=${AUTH_USERNAME} --auth-password=${AUTH_PASSWORD})
+    TOKEN=$(wazo-auth-cli token create --auth-username="${AUTH_USERNAME}" --auth-password="${AUTH_PASSWORD}")
 else
     TOKEN=$(wazo-auth-cli token create)
 fi
@@ -55,17 +55,16 @@ delete_token() {
 trap delete_token EXIT
 
 # Find WebRTC templates
-while IFS= read -r row; do
-    columns=( $row )
+while IFS=' ' read -ra columns; do
     case "${columns[1]}" in
-        webrtc) 
+        webrtc)
             WEBRTC_TEMPLATE_UUID=${columns[0]}
             ;;
         webrtc_video)
             WEBRTC_VIDEO_TEMPLATE_UUID=${columns[0]}
             ;;
     esac
-done < <(wazo-confd-cli --token ${TOKEN} endpoint sip template list --tenant ${TENANT_UUID} -fvalue)
+done < <(wazo-confd-cli --token "${TOKEN}" endpoint sip template list --tenant "${TENANT_UUID}" -fvalue)
 
 
 if [[ ! -v WEBRTC_TEMPLATE_UUID ]] || [ -z "${WEBRTC_TEMPLATE_UUID}" ]; then
@@ -91,3 +90,4 @@ for endpoint_uuid in $(wazo-confd-cli --token ${TOKEN} endpoint sip list --templ
 done
 echo
 echo 'done'
+
