@@ -1,4 +1,4 @@
-# Copyright 2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2022-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 
 _APP_NAME = 'wazo-confd-cli'
 _DEFAULT_CONFIG = {
-    'config_file': '/etc/{}/config.yml'.format(_APP_NAME),
-    'extra_config_files': '/etc/{}/conf.d/'.format(_APP_NAME),
+    'config_file': f'/etc/{_APP_NAME}/config.yml',
+    'extra_config_files': f'/etc/{_APP_NAME}/conf.d/',
     'confd': {'host': 'localhost', 'port': 9486, 'prefix': None, 'https': False},
 }
 
