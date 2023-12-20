@@ -1,11 +1,10 @@
-# Copyright 2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2022-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from cliff.command import Command
 from cliff.lister import Lister
 
 from ..helpers import ListBuildingMixin
-
 
 ENDPOINT_COLUMNS = [
     'uuid',

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2022-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 set -e
@@ -95,4 +95,3 @@ for endpoint_uuid in $(endpoints_missing_template_webrtc_video); do
 done
 echo
 echo 'done'
-
